@@ -34,6 +34,9 @@ public class ProductControllerTest {
 
 	@InjectMocks
 	ProductController productController;
+	
+	@InjectMocks
+	CategoryController categoryController;
 
 	private MockMvc mockMvc;
 
@@ -59,7 +62,7 @@ public class ProductControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/category").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.ALL).content(asJsonString(""))).andReturn();
 
-		ResponseEntity<List<ProductCategoryResponse>> response = productController.getProductCategories();
+		ResponseEntity<List<ProductCategoryResponse>> response = categoryController.getProductCategories();
 
 		assertEquals(200, response.getStatusCodeValue());
 	}
@@ -81,7 +84,7 @@ public class ProductControllerTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/category/1").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.ALL).content(asJsonString(""))).andReturn();
-		ResponseEntity<List<ProductResponseDto>> actual = productController.getAllProducts(1);
+		ResponseEntity<List<ProductResponseDto>> actual = categoryController.getAllProducts(1);
 		assertEquals(1, actual.getBody().size());
 		assertEquals(200, actual.getStatusCodeValue());
 	}
