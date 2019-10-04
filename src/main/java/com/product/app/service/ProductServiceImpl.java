@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 	ProductRepository productRepository;
 
 	public List<ProductResponseDto> getAllProducts(int categoryId) {
-		List<Product> product = productRepository.findAllByCategoryId(categoryId);
+		List<Product> product = productRepository.findAllDistinctByCategoryId(categoryId);
 
 		List<ProductResponseDto> productsList = new ArrayList<>();
 		if (product != null) {
@@ -40,12 +40,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public ProductDetailsResponseDTO getProductDetails(int productId) {
-		Product product = productRepository.findAllByProductId(productId);
+		Product product = productRepository.findAllDistinctByProductId(productId);
 		if (product != null) {
 
 			ProductDetailsResponseDTO productDetailsResponseDTO = new ProductDetailsResponseDTO();
 
-			
+			// productDetailsResponseDTO.setCharges(product.getCharges());
 			productDetailsResponseDTO.setProductDescription(product.getProductDescription());
 			productDetailsResponseDTO.setProductId(productId);
 			return productDetailsResponseDTO;
@@ -54,7 +54,5 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 	}
-
-	
 
 }

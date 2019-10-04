@@ -6,10 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.product.app.entity.ProductCategory;
 
 @Repository
-public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer>{
-	
-	
-	public ProductCategory findByCategoryName(String name);
-	
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
+
+	public ProductCategory findDistinctByCategoryName(String name);
 
 }

@@ -36,41 +36,33 @@ public class ProductControllerTest {
 	ProductController productController;
 
 	private MockMvc mockMvc;
-	
-	
+
 	@Mock
 	ProductCategoryServiceImpl productCategoryServiceImpl;
-	
-	
-	
-	
-	
+
 	@Before
 	public void setUp() {
-		
+
 		mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
 	}
-	
+
 	@Test
-	public void getProductCategoriesTest() throws Exception
-	{
-		List<ProductCategoryResponse> categoryResponse =  new ArrayList<ProductCategoryResponse>();
-		ProductCategoryResponse categoryResponse1  = new ProductCategoryResponse();
+	public void getProductCategoriesTest() throws Exception {
+		List<ProductCategoryResponse> categoryResponse = new ArrayList<ProductCategoryResponse>();
+		ProductCategoryResponse categoryResponse1 = new ProductCategoryResponse();
 		categoryResponse1.setCategoryId(100);
 		categoryResponse1.setCategoryName("Savings");
 		categoryResponse.add(categoryResponse1);
-		
+
 		Mockito.when(productCategoryServiceImpl.getAllProductCategory()).thenReturn(categoryResponse);
-		
+
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/category").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.ALL).content(asJsonString(""))).andReturn();
-		
-		ResponseEntity<List<ProductCategoryResponse>> response  = productController.getProductCategories();
-		
+
+		ResponseEntity<List<ProductCategoryResponse>> response = productController.getProductCategories();
+
 		assertEquals(200, response.getStatusCodeValue());
 	}
-
-	
 
 	@Test
 	public void testGetAllProducts() throws Exception {
@@ -93,7 +85,7 @@ public class ProductControllerTest {
 		assertEquals(1, actual.getBody().size());
 		assertEquals(200, actual.getStatusCodeValue());
 	}
-	
+
 	@Test
 	public void testGetProductDetails() throws Exception {
 
@@ -101,11 +93,9 @@ public class ProductControllerTest {
 		product.setProductId(1);
 
 		ProductDetailsResponseDTO productResponseDto = new ProductDetailsResponseDTO();
-		
+
 		productResponseDto.setProductDescription("Insurance Policy");
 		productResponseDto.setProductId(1);
-		
-	
 
 		Mockito.when(productService.getProductDetails(Mockito.anyInt())).thenReturn(productResponseDto);
 
@@ -113,12 +103,10 @@ public class ProductControllerTest {
 				.accept(MediaType.ALL).content(asJsonString(""))).andReturn();
 		ResponseEntity<ProductDetailsResponseDTO> actual = productController.getProductDetails(1);
 		assertEquals("Insurance Policy", actual.getBody().getProductDescription());
-		assertEquals(1,actual.getBody().getProductId());
+		assertEquals(1, actual.getBody().getProductId());
 		assertEquals(200, actual.getStatusCodeValue());
 	}
 
-
-	
 	public static String asJsonString(final Object obj) {
 
 		try {

@@ -8,22 +8,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
-	
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ResponseError> invalidExceptionHandler(Exception ex)
-	{
-		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
-		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-	}
-	
-	@ExceptionHandler(ProductNotFoundException.class)
-	public ResponseEntity<ResponseError> productNotFoundExceptionHandler(ProductNotFoundException ex)
-	{
-		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+	public ResponseEntity<ResponseError> invalidExceptionHandler(Exception ex) {
+		ResponseError error = new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
-	
+	@ExceptionHandler(ProductNotFoundException.class)
+	public ResponseEntity<ResponseError> productNotFoundExceptionHandler(ProductNotFoundException ex) {
+		ResponseError error = new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
 
 }

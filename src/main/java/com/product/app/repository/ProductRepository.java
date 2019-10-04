@@ -10,10 +10,10 @@ import com.product.app.entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-	List<Product> findAllByCategoryId(int categoryId);
+	List<Product> findAllDistinctByCategoryId(int categoryId);
 
-	Product findAllByProductId(int productId);
-	
-	Product findByProductId(int productId);
+	Product findAllDistinctByProductId(int productId);
+
+	Product findDistinctByProductId(int productId);
 
 }

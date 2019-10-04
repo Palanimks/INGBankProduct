@@ -29,30 +29,27 @@ public class ProductServiceTest {
 
 	@InjectMocks
 	ProductServiceImpl productServiceImpl;
-	
+
 	@Mock
 	ProductCategoryRepository productCategoryRepository;
-	
+
 	@InjectMocks
 	ProductCategoryServiceImpl productCategoryServiceImpl;
 
-	
 	@Test
-	public void getAllProductCategoryTest()
-	{
+	public void getAllProductCategoryTest() {
 		List<ProductCategory> listcategory = new ArrayList<ProductCategory>();
-		ProductCategory category  =  new ProductCategory();
+		ProductCategory category = new ProductCategory();
 		category.setCategoryId(100);
 		category.setCategoryName("Savings");
 		listcategory.add(category);
-		
+
 		Mockito.when(productCategoryRepository.findAll()).thenReturn(listcategory);
-		
+
 		List<ProductCategoryResponse> response = productCategoryServiceImpl.getAllProductCategory();
-		
+
 		assertEquals(100, response.get(0).getCategoryId());
-		
-		
+
 	}
 
 	@Test
@@ -72,7 +69,7 @@ public class ProductServiceTest {
 
 		productList.add(productResponseDto);
 		Mockito.when(productServiceImpl.getAllProducts(Mockito.anyInt())).thenReturn(productList);
-		when(productRepository.findAllByCategoryId(Mockito.anyInt())).thenReturn(productsList);
+		when(productRepository.findAllDistinctByCategoryId(Mockito.anyInt())).thenReturn(productsList);
 		List<ProductResponseDto> actual = productServiceImpl.getAllProducts(1);
 		assertEquals(1, actual.get(0).getCategoryId());
 		assertEquals(1, actual.get(0).getProductId());
@@ -85,19 +82,14 @@ public class ProductServiceTest {
 		Product product = new Product();
 		product.setProductId(1);
 
-	
-
 		ProductDetailsResponseDTO productResponseDto = new ProductDetailsResponseDTO();
 
-		
 		productResponseDto.setProductDescription("ING providing life insurance");
 		productResponseDto.setProductId(1);
-	
-		when(productRepository.findAllByProductId(Mockito.anyInt())).thenReturn(product);
+
+		when(productRepository.findAllDistinctByProductId(Mockito.anyInt())).thenReturn(product);
 		ProductDetailsResponseDTO actual = productServiceImpl.getProductDetails(1);
 		assertEquals(1, actual.getProductId());
-	
-	
 
 	}
 }
