@@ -9,12 +9,12 @@ node('master'){
 
    stage('Code analysis'){
 
-             sh '/opt/maven/bin/mvn clean package sonar:sonar -Dsonar.password=admin -Dsonar.login=admin'
+             sh '/opt/maven clean package sonar:sonar -Dsonar.password=admin -Dsonar.login=admin'
          }
 
    stage('Build'){
 
-             sh '/opt/maven/bin/mvn clean install'
+             sh '/opt/maven clean install'
 
          }
    stage('Execution'){
